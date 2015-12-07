@@ -1016,3 +1016,7 @@ Some reveal.js features, like external Markdown and speaker notes, require that 
 MIT licensed
 
 Copyright (C) 2015 Hakim El Hattab, http://hakim.se
+
+# Mike's Page Info
+
+The page can be viewed <a href="http://lionfish0.github.io/DP_talk/#/">here</a>.	
