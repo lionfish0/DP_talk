@@ -162,7 +162,7 @@
 
                 <section data-background="assets/pres_bg.png">
 					<h2>Differential Privacy</h2>   
-                    <p>Maximize the accuracy of queries from statistical databases while minimizing the chances of identifying its records.</p>      
+                    <p>Maximize the accuracy of queries from statistical databases while minimizing the chances of identifying its records.</p>
                     <p align='right'><small><a href="https://en.wikipedia.org/wiki/Differential_privacy">wikipedia</a></small></p>
 				</section>
 
@@ -221,26 +221,89 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 <p>To protect the group, we could introduce more randomness</p>
 </section>
 
-<section data-background="assets/pres_bg.png">
-<h2>Another example</h2>
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
 <img src="assets/db0.png">
-<p class="fragment">Answer: 2</p>
+<p class="fragment">We'll call our query function (summation): $M$.</p>
+<p class="fragment">We'll call this database $D_1$.</p>
+<p class="fragment">$M(D_1) = 2$</p>
+</script>
 </section>
 
-<section data-background="assets/pres_bg.png">
-<h2>Another example</h2>
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
 <img src="assets/db.png">
-<p class="fragment">Answer: 3</p>
+<p class="fragment">We'll call this database $D_2$.</p>
+<p class="fragment">I.e. $M(D_2) = 3$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>Did the new person (Fred) have diabetes?</p>
+<p class="fragment">$M(D_2)-M(D_1) = 3-2 = 1$</p>
+<p class="fragment">Yes</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>
+Differential Privacy works by considering the $l_1$ sensitivity of a function. That is; the magnitude of the change in its output one individual can cause.
+</p>
+<p class="fragment">In this case<br />$l_1 = 1$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>
+To make our database queries differentially private we need to add noise to the output of the query, so $M(D) = f(D) + noise$.
+<img src="assets/laplace1.png" />
+</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>
+We can see the effect of adding $l_1$ to the output.
+<img src="assets/laplace2.png" />
+</p>
+</script>
 </section>
 
 
-<section data-background="assets/pres_bg.png">
-<h2>Another example</h2>
-<p>Did the new person (Fred) have diabetes?</p>
-<p class="fragment">3-2=1</p>
-<p class="fragment">Yes</p>
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>
+If the actual output value $m = 4$, what is the probability of that output, for the two databases?
+<img src="assets/laplace3.png" />
+</p>
+</script>
+</section>
+
+
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<img src="assets/laplace3.png" width=50% align="right"/>
+<p>$M(D_2)$ was no more than three times more likely to equal $4$ than $M(D_1)$.</p>
+<p class="fragment">In maths:<br/>
+$P\Big( M(D_1) = 4 \Big) \leq 3 \times P\Big( M(D_2) = 4 \Big)$</p>
+<p class="fragment">
+$P\Big( M(D_1) = m \Big) \leq e^{\epsilon) \times P\Big( M(D_2) = m \Big) + \delta$</p>
+</script>
 </section>
 
 
@@ -297,6 +360,11 @@ https://en.wikipedia.org/wiki/Differential_privacy
 				history: true,
 				center: true,
 
+                math: {
+                    mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                    config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+                },
+
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
@@ -306,7 +374,8 @@ https://en.wikipedia.org/wiki/Differential_privacy
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true }
 				]
 			});
 
