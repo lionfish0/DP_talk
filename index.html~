@@ -217,11 +217,12 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 <section data-background="assets/pres_bg.png">
 <h2>Summary</h2>
 <p>An individual's opinion is fairly safe in this example (plausible deniability)</p>
-<p>We can still perform inference over the whole group</p>
-<p>To protect the group, we could introduce more randomness</p>
+<p class="fragment">We can still perform inference over the whole group</p>
+<p class="fragment">To protect the group, we could introduce more randomness</p>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
@@ -232,7 +233,55 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </script>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+<h2>Differential Privacy</h2>
+<p>A randomised algorithm $M$ is $(\varepsilon, \delta)$-differentially private if, for all $m$ across its whole range, and for all neighbouring databases $D_1$ and $D_2$</p>
+<p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<p class="fragment">$\varepsilon$ puts a bound on how much privacy is lost by the query.</p>
+<p class="fragment">Smaller $\varepsilon$ means more privacy (think about what happens if $\varepsilon=0$.</p>
+<p class="fragment">$\delta$ says this inequality only holds with probability $1-\delta$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+<p>For the coin-flip example, we want to compare the chance of a 'yes' response if the actual value is 'yes',</p>
+<p>$P\Big(M(yes)=yes\Big)$<span class="fragment">$={}^3/_4$</span></p>
+<p>with the chance of a 'yes' response if the actual value is 'no',</p>
+<p>$P\Big(M(no)=yes\Big)$<span class="fragment">$={}^1/_4$</span></p>
+<p class="fragment">Substituting in (ignoring $\delta$) $P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<p class="fragment">${}^3/_4 \leq e^{\varepsilon} \times {}^1/_4$</p>
+<p class="fragment">$3 \leq e^{\varepsilon}$</p>
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+<p>The strongest bound, which is true for all neighbouring databases and output values is that</p>
+<p>$\varepsilon = ln \; 3$</p>
+<p>So we can write that:</p>
+<br />
+<p>The coin flip mechanism is $(ln\;3, 0)$-differentially private.</p>
+</script>
+</section>
+
+
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+<h2>Counting Queries</h2>
+<p>How many people have diabetes?</p>
+<img src="assets/db0.png">
+<p class="fragment">We'll call this database $D_1$.</p>
+<p class="fragment">Our query function, $M$, is summation.</p>
+<p class="fragment">$M(D_1) = 2$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
@@ -242,7 +291,7 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </script>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>Did the new person (Fred) have diabetes?</p>
@@ -251,17 +300,18 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </script>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>
 Differential Privacy works by considering the $l_1$ sensitivity of a function. That is; the magnitude of the change in its output one individual can cause.
 </p>
-<p class="fragment">In this case<br />$l_1 = 1$</p>
+<p class="fragment">In this case<br />$\Delta f= 1$</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>
@@ -271,18 +321,18 @@ To make our database queries differentially private we need to add noise to the 
 </script>
 </section>
 
-<section data-background="assets/pres_bg.png" data-markdown>
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>
-We can see the effect of adding $l_1$ to the output.
+We can see the effect of adding $\Delta f$ to the output.
 <img src="assets/laplace2.png" />
 </p>
 </script>
 </section>
 
 
-<section data-background="assets/pres_bg.png" data-markdown>
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>
@@ -294,17 +344,45 @@ If the actual output value $m = 4$, what is the probability of that output, for 
 
 
 
-<section data-background="assets/pres_bg.png" data-markdown>
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <img src="assets/laplace3.png" width=50% align="right"/>
 <p>$M(D_2)$ was no more than three times more likely to equal $4$ than $M(D_1)$.</p>
 <p class="fragment">In maths:<br/>
-$P\Big( M(D_1) = 4 \Big) \leq 3 \times P\Big( M(D_2) = 4 \Big)$</p>
+$P\Big( M(D_2) = 4 \Big) \leq 3 \times P\Big( M(D_1) = 4 \Big)$</p>
 <p class="fragment">
-$P\Big( M(D_1) = m \Big) \leq e^{\epsilon) \times P\Big( M(D_2) = m \Big) + \delta$</p>
+So we can say that this mechanism is $(ln \; 3,0)$-differentially private too. I've chosen the Laplace noise to have a scale, $b$, such that the privacy is equal to the coin flip example.</p>
 </script>
 </section>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+<img src="assets/epsilons.png" width=50% align="right"/>
+<h3>The Laplace Mechanism</h3>
+<p>It's fairly easy to see that to have privacy $\varepsilon$, for the Laplace mechanism, you need scale parameter</p>
+<p>$b = {{\Delta f} \over {b}}$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<script type="text/template">
+
+<h3>Briefly: The $\delta$ parameter</h3>
+<p>Consider adding uniform noise (with width=4).</p>
+<p>If you queried $D_1$ (without Fred), and received 0.5. You'd know there are between 0 and 2 people with diabetes.</p>
+</script>
+</section>
+
+<h3>Briefly: The $\delta$ parameter</h3>
+<p>Consider adding uniform noise (with width=4).</p>
+<p>If you queried $D_2$ (with Fred), and received 4.5. You'd know there are between 3 and 6 people with diabetes.</p>
+</script>
+</section>
+
+
+
+
 
 
 
