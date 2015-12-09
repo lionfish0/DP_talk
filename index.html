@@ -46,14 +46,15 @@
                     <h3>Explaining</h3>
 					<h1>Differential Privacy</h1>
 					<p>
-						<small>Presented by <a href="http://michaeltsmith.org.uk">Mike Smith</a></small>
+						<small>Presented by Mike Smith</small><br/>
+                        <small><a href="mailto:mike@michaeltsmith.org.uk">mike@michaeltsmith.org.uk</a></small>
 					</p>
 				</section>
 
 				<section>
 					<h2>Quick Note!</h2>
 					<p>
-					    I'm presenting other people's work today.</p><p> See <a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">The Algorithmic Foundations of Differential Privacy</a> by Dwork and Roth for a rigorous introdution to the framework.
+					    I'm presenting other people's work today.</p><p> See <a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">The Algorithmic Foundations of Differential Privacy</a> by Dwork and Roth for a rigorous introduction to the framework.
 					</p>
 				</section>
 
@@ -103,7 +104,7 @@
                 <section>
 					<h2>Quick note!</h2>
 					<p>
-					    Although a convient story about privacy, how many people were really at risk from re-identification in this database is <span style="white-space:nowrap;"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2076397">still</a> <a href="http://healthaffairs.org/blog/2012/08/10/the-debate-over-re-identification-of-health-information-what-do-we-risk/" style="">being</a> <a href="http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf">debated</a></span>.
+					    Although a convenient story about privacy, how many people were really at risk from re-identification in this database is <span style="white-space:nowrap;"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2076397">still</a> <a href="http://healthaffairs.org/blog/2012/08/10/the-debate-over-re-identification-of-health-information-what-do-we-risk/" style="">being</a> <a href="http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf">debated</a></span>.
 					</p>
 
 				</section>
@@ -111,7 +112,7 @@
 
                <section>
 					<h2>Another Note:</h2>
-                    <p>Because of swapping (which we'll get to) the following is a fictious example.</p>
+                    <p>Because of swapping (which we'll get to) the following is a fictitious example.</p>
                </section>
 
 
@@ -147,7 +148,7 @@
 
                 <section data-background="assets/pres_bg.png">
 					<h2>Swapping</h2>                
-                    <p>The ONS have thought of this and peform <b>targetted record swapping</b> to try and achieve anonymity.</p>
+                    <p>The ONS have thought of this and perform <b>targeted record swapping</b> to try and achieve anonymity.</p>
                     <p class="fragment">Rare households are more likely to be swapped</p>
                     <p class="fragment">Households are (usually) swapped within local authority areas</p>
                     <p class="fragment">Swaps are matched to preserve some statistical features</p>
@@ -156,14 +157,14 @@
                 <section data-background="assets/pres_bg.png">
 					<h2>Summary</h2>   
                     <p>Making a dataset private needs more than just erasing names</p>             
-                    <p class="fragment">To acheive a level of privacy the ONS have added <b>randomness</b> to the data</p>
+                    <p class="fragment">To achieve a level of privacy the ONS have added <b>randomness</b> to the data</p>
                     <p class="fragment">This is a fundamental feature of differential privacy</p>
 				</section>
 
                 <section data-background="assets/pres_bg.png">
 					<h2>Differential Privacy</h2>   
                     <p>Maximize the accuracy of queries from statistical databases while minimizing the chances of identifying its records.</p>
-                    <p align='right'><small><a href="https://en.wikipedia.org/wiki/Differential_privacy">wikipedia</a></small></p>
+                    <p align='right'><small><a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">Dwork and Roth. "The algorithmic foundations of differential privacy." </a></small></p>
 				</section>
 
 
@@ -222,30 +223,29 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </section>
 
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
-<script type="text/template">
-<h2>Counting Queries</h2>
-<p>How many people have diabetes?</p>
-<img src="assets/db0.png">
-<p class="fragment">We'll call our query function (summation): $M$.</p>
-<p class="fragment">We'll call this database $D_1$.</p>
-<p class="fragment">$M(D_1) = 2$</p>
-</script>
-</section>
-
-
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 <h2>Differential Privacy</h2>
 <p>A randomised algorithm $M$ is $(\varepsilon, \delta)$-differentially private if, for all $m$ across its whole range, and for all neighbouring databases $D_1$ and $D_2$</p>
 <p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
 <p class="fragment">$\varepsilon$ puts a bound on how much privacy is lost by the query.</p>
-<p class="fragment">Smaller $\varepsilon$ means more privacy (think about what happens if $\varepsilon=0$.</p>
+<p class="fragment">Smaller $\varepsilon$ means more privacy (think about what happens if $\varepsilon=0$)</p>
 <p class="fragment">$\delta$ says this inequality only holds with probability $1-\delta$</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<img src="assets/dp_graph.png" width=60%>
+<p class="fragment">The ratio of probabilities between the outputs from two neighbouring databases can't be more than $e^\varepsilon$</p>
+
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 <p>For the coin-flip example, we want to compare the chance of a 'yes' response if the actual value is 'yes',</p>
 <p>$P\Big(M(yes)=yes\Big)$<span class="fragment">$={}^3/_4$</span></p>
@@ -258,7 +258,7 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </section>
 
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 <p>The strongest bound, which is true for all neighbouring databases and output values is that</p>
 <p>$\varepsilon = ln \; 3$</p>
@@ -269,8 +269,7 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </section>
 
 
-
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
@@ -281,28 +280,25 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
 <img src="assets/db.png">
 <p class="fragment">We'll call this database $D_2$.</p>
-<p class="fragment">I.e. $M(D_2) = 3$</p>
+<p class="fragment">$M(D_2) = 3$</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>Did the new person (Fred) have diabetes?</p>
 <p class="fragment">$M(D_2)-M(D_1) = 3-2 = 1$</p>
 <p class="fragment">Yes</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>
 Differential Privacy works by considering the $l_1$ sensitivity of a function. That is; the magnitude of the change in its output one individual can cause.
 </p>
@@ -311,77 +307,117 @@ Differential Privacy works by considering the $l_1$ sensitivity of a function. T
 </section>
 
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>
 To make our database queries differentially private we need to add noise to the output of the query, so $M(D) = f(D) + noise$.
-<img src="assets/laplace1.png" />
+<img src="assets/laplace1.png" style="border:none;"  />
 </p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>
 We can see the effect of adding $\Delta f$ to the output.
-<img src="assets/laplace2.png" />
+<img src="assets/laplace2.png" style="border:none;" />
 </p>
 </script>
 </section>
 
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
 <p>
 If the actual output value $m = 4$, what is the probability of that output, for the two databases?
-<img src="assets/laplace3.png" />
+<img src="assets/laplace3.png" style="border:none;" />
 </p>
 </script>
 </section>
 
 
-
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<h2>Counting Queries</h2>
-<img src="assets/laplace3.png" width=50% align="right"/>
-<p>$M(D_2)$ was no more than three times more likely to equal $4$ than $M(D_1)$.</p>
-<p class="fragment">In maths:<br/>
-$P\Big( M(D_2) = 4 \Big) \leq 3 \times P\Big( M(D_1) = 4 \Big)$</p>
-<p class="fragment">
-So we can say that this mechanism is $(ln \; 3,0)$-differentially private too. I've chosen the Laplace noise to have a scale, $b$, such that the privacy is equal to the coin flip example.</p>
+<img src="assets/laplace3.png" width=80%  style="border:none;"/>
+<p>$M(D_2)$ was 3 times more likely to equal 4 than $M(D_1)$.</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<img src="assets/epsilons.png" width=50% align="right"/>
+<img src="assets/laplace3b.png" width=80% style="border:none;"/>
+<p>$M(D_2)$ was also 3 times more likely to equal 3.5.</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3d.png" width=80% style="border:none;"/>
+<p>$M(D_1)$ was 3 times more likely to equal 1.5 than $M(D_2)$.</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3e.png" width=80% style="border:none;"/>
+<p>In between the two peaks, neither distribution is more than 3 times more likely than the other.</p>
+</script>
+</section>
+
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>I've chosen the Laplace noise to have scale parameter, $b$, such that the privacy of this mechanism is equal to that of the coin flip example.</p>
+<p class="fragment">For any pair of neighbouring databases,
+$P\Big( M(D_2) = m \Big) \leq e^{ln\;3} \times P\Big( M(D_1) = m \Big)$</p>
+<p class="fragment">
+So we can say that (for the scale of the Laplace distribution I've chosen) this mechanism is $(ln \; 3,0)$-differentially private too. </p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/epsilons.png" width=60% align="right" style="border:none; margin-left:50px;"/>
 <h3>The Laplace Mechanism</h3>
 <p>It's fairly easy to see that to have privacy $\varepsilon$, for the Laplace mechanism, you need scale parameter</p>
 <p>$b = {{\Delta f} \over {b}}$</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 
 <h3>Briefly: The $\delta$ parameter</h3>
 <p>Consider adding uniform noise (with width=4).</p>
-<img src="assets/delta1.png"/>
+<img src="assets/delta1.png" width=50% style="border:none;"/>
 <p>If you queried $D_1$ (without Fred), and received 0.5. You'd know there are between 0 and 2 people with diabetes.</p>
 </script>
 </section>
 
-<section data-background="assets/pres_bg_bb.jpg" data-markdown>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-
-<h3>Briefly: The $\delta$ parameter</h3>
-<p>Consider adding uniform noise (with width=4).</p>
-<img src="assets/delta2.png"/>
+<img src="assets/delta2.png" width=50% style="border:none;"/>
 <p>If you queried $D_2$ (with Fred), and received 4.5. You'd know there are between 3 and 6 people with diabetes.</p>
+<p class="fragment">From these two queries you can be certain that Fred has diabetes. Although our randomised algorithm wouldn't always reveal Fred's status, it would do so with some probability, which is handled by the $\delta$.</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Differential Privacy Summary</h2>
+<p>This is a fairly new field for me. I'm starting to look at using its powerful privacy guarantees for the handling of data as part of the <a href="http://scikic.org">scikic</a> project.</p>
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>What I'm doing with Differential Privacy</h2>
+<p><a href="http://jmlr.org/papers/volume14/hall13a/hall13a.pdf">Hall et al. 2013</a> have developed a method for releasing <em>functions</em> while preserving privacy.</p>
+<p>I'm applying their method to allow the release of a Gaussian Process's mean function.</p>
+<p>Check back soon!</p>
 </script>
 </section>
 
@@ -389,80 +425,83 @@ So we can say that this mechanism is $(ln \; 3,0)$-differentially private too. I
 
 
 
+<section data-background="assets/pres_bg.png">
+<small>
+<p align="left">
+<span style='margin-left:-50px;'><b>The go-to book on differential privacy, by Dwork and Roth;</b><br/></span>
+Dwork, Cynthia, and Aaron Roth. "The algorithmic foundations of differential privacy." Theoretical Computer Science 9.3-4 (2013): 211-407.
+<a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">link</a>
+</p>
+<p align="left">
+<span style='margin-left:-50px;'><b>I found this paper allowed me to start applying DP to GP;</b><br/></span>
+Hall, Rob, Alessandro Rinaldo, and Larry Wasserman. "Differential privacy for functions and functional data." The Journal of Machine Learning Research 14.1 (2013): 703-727.
+<a href="http://www.stat.cmu.edu/~arinaldo/papers/hall13a.pdf">link</a>
+</p>
+
+<p align="left">
+<span style='margin-left:-50px;'><b>Articles about the Massachusetts privacy debate</b><br/></span>
+Barth-Jones, Daniel C. "The're-identification'of Governor William Weld's medical information: a critical re-examination of health data identification risks and privacy protections, then and now." Then and Now (June 4, 2012) (2012).  <a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2076397">link</a>
+</p>
+<p align="left">
+Ohm, Paul. "Broken promises of privacy: Responding to the surprising failure of anonymization." UCLA Law Review 57 (2010): 1701. <a href="https://epic.org/privacy/reidentification/ohm_article.pdf">link</a>
+</p>
+
+<p align="left">Narayanan, Arvind, and Edward W. Felten. "No silver bullet: De-identification still doesn’t work." White Paper (2014). <a href="http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf">link</a></p>
+
+<p align="left"><span style='margin-left:-50px;'><b>Images used:</b></span>
+BostonGlobe: <a href="https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2015/05/29/BostonGlobe.com/Business/Images/MassMutual_04.jpg">Mass Mutual</a>, 
+ <a href="https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2014/10/20/BostonGlobe.com/Metro/Images/Gov.%20Bill%20Weld%201-100425.jpg">Weld</a>. Harvard: <a href="http://www.gov.harvard.edu/files/Sweeney6crop.jpg">Sweeney</a>. Rich on flickr: <a href="https://www.flickr.com/photos/rich_b1982/13114665103/in/pool-sheffieldskyline/">Sheffield skyline</a>.</p>
+<p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+</small>
+</section>
 
 
-				<section>
-					<h2>References</h2>
-					<p>
-http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2076397
-						https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2015/05/29/BostonGlobe.com/Business/Images/MassMutual_04.jpg
-https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2014/10/20/BostonGlobe.com/Metro/Images/Gov.%20Bill%20Weld%201-100425.jpg
-https://epic.org/privacy/reidentification/ohm_article.pdf
+</div>
 
-http://healthaffairs.org/blog/2012/08/10/the-debate-over-re-identification-of-health-information-what-do-we-risk/
-http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf
+</div>
 
-http://www.gov.harvard.edu/files/Sweeney6crop.jpg
-https://en.wikipedia.org/wiki/Differential_privacy
-					</p>
-				</section>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
 
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
+<script>
 
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
+	// Full list of configuration options available at:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
 
-			</div>
+        math: {
+            mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+            config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+        },
 
-		</div>
+		transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+		// Optional reveal.js plugins
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/math/math.js', async: true }
+		]
+	});
 
-		<script>
+</script>
 
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-                math: {
-                    mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-                    config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
-                },
-
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
-
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true },
-                    { src: 'plugin/math/math.js', async: true }
-				]
-			});
-
-		</script>
-
-	</body>
+</body>
 </html>
