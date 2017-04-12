@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Differentially Private Gaussian Processes</title>
+		<title>Differential Privacy</title>
 
-		<meta name="description" content="Differentially Private Gaussian Processes">
+		<meta name="description" content="Intro and motivation for Differential Privacy">
 		<meta name="author" content="Mike Smith">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,18 +40,21 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides" data-background="assets/pres_bg.png">
+                <section data-background="assets/pres_bg.png">
+                </section>
 				<section data-background="assets/pres_bg.png">
-                    
-					<h3>Differentially Private<br/> Gaussian Processes</h3>
+                    <h3>Explaining</h3>
+					<h1>Differential Privacy</h1>
 					<p>
 						<small>Presented by Mike Smith</small><br/>
-                        <small><a href="mailto:m.t.smith@sheffield.ac.uk">m.t.smith@sheffield.ac.uk</a></small>
+                        <small><a href="mailto:mike@michaeltsmith.org.uk">mike@michaeltsmith.org.uk</a></small>
 					</p>
 				</section>
 
 				<section>
-					<h2>Differential Privacy</h2><h3>A Quick Introduction</h3>
-					<p>See <a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">The Algorithmic Foundations of Differential Privacy</a> by Dwork and Roth for a rigorous introduction to the framework.
+					<h2>Quick Note!</h2>
+					<p>
+					    I'm presenting other people's work today.</p><p> See <a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">The Algorithmic Foundations of Differential Privacy</a> by Dwork and Roth for a rigorous introduction to the framework.
 					</p>
 				</section>
 
@@ -86,20 +89,90 @@
 					<p>
                         <img src="assets/sweeney.jpg" align="right" style="margin:50px;" />
                         Latanya Sweeney used the voter rolls (which contain the <b>name</b>, <b>address</b>, <b>ZIP code</b>, <b>date of birth</b> and <b>sex</b> of every voter) to find Governor Weld's medical records...</p>
-                    <p><span class="fragment">...which she posted to him.</span>
-                    <p style="color:#eec; text-align:left;"><span class="fragment">This is a <b>linkage attack</b>:
-                    it uses <b>auxiliary information</b> to compromise privacy in a database.</span></p>
+                    <p><span class="fragment">...which she posted to him.
 					</p>
+
+
 				</section>
 
-                
+
+               <section data-background="assets/pres_bg.png">
+					<h2>Anonymity Gone Wrong</h2>
+                    <p>This is known as a <b>linkage attack</b>:</p>
+                    <p>An attack that uses <b>auxiliary information</b> to compromise privacy in a database.</p>
+				</section>
+                <section>
+					<h2>Quick note!</h2>
+					<p>
+					    Although a convenient story about privacy, how many people were really at risk from re-identification in this database is <span style="white-space:nowrap;"><a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2076397">still</a> <a href="http://healthaffairs.org/blog/2012/08/10/the-debate-over-re-identification-of-health-information-what-do-we-risk/" style="">being</a> <a href="http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf">debated</a></span>.
+					</p>
+
+				</section>
+
+
+               <section>
+					<h2>Another Note:</h2>
+                    <p>Because of swapping (which we'll get to) the following is a fictitious example.</p>
+               </section>
+
+
+        <section data-background="assets/pres_bg.png">
+					<h2>The 2011 UK Census</h2>
+                    <p>Run by the Office for National Statistics. The smallest geographical area one can query is called an <b>Output Area</b></p>
+                    <img src="assets/oa.png" style="margin:-10px;" />
+                    <p></p>
+				</section>
+
+         <section data-background="assets/pres_bg.png">
+					<h2>The 2011 UK Census</h2>
+                    <p>I've queried my output area's "Religion by Age and Sex"</p>                 
+                    <img src="assets/oadata1.png" style="border:none;" /></p>
+                    <p  align='right'><small>My real output area's data!</small>
+
+				</section>
+                <section data-background="assets/pres_bg.png">
+					<h2>My neighbour</h2>
+
+                    <p>
+                    <img src="assets/man.jpg" align="right" style="margin:20px;" />My neighbour is this man who's aged over 75.</p>
+                    <p align='right'><small>My neighbour isn't really over 75, and this isn't really a photo of him.</small></p>
+				</section>
+                <section data-background="assets/pres_bg.png">
+					<h2>Is it Private?</h2>
+                    <img src="assets/oadata2.png" align="right" style="border:none; margin:20px;" width=25% />
+                    <p>There's only one person (a man) over 75 in the data...</p>
+                    <p class="fragment">It appears we could re-identify individuals.</p>
+                    <p class="fragment">Although he's a very private person we can work out his religion by looking at the table.</p>
+				</section>
+
+
+                <section data-background="assets/pres_bg.png">
+					<h2>Swapping</h2>                
+                    <p>The ONS have thought of this and perform <b>targeted record swapping</b> to try and achieve anonymity.</p>
+                    <p class="fragment">Rare households are more likely to be swapped</p>
+                    <p class="fragment">Households are (usually) swapped within local authority areas</p>
+                    <p class="fragment">Swaps are matched to preserve some statistical features</p>
+				</section>
+
+                <section data-background="assets/pres_bg.png">
+					<h2>Summary</h2>   
+                    <p>Making a dataset private needs more than just erasing names</p>             
+                    <p class="fragment">To achieve a level of privacy the ONS have added <b>randomness</b> to the data</p>
+                    <p class="fragment">This is a fundamental feature of differential privacy</p>
+				</section>
+
+                <section data-background="assets/pres_bg.png">
+					<h2>Differential Privacy</h2>   
+                    <p>Maximize the accuracy of queries from statistical databases while minimizing the chances of identifying its records.</p>
+                    <p align='right'><small><a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">Dwork and Roth. "The algorithmic foundations of differential privacy." </a></small></p>
+				</section>
 
 
                 <section data-background="assets/pres_bg.png">
 					<h2>Example</h2>   
                     <p>We might want to find out whether people hold a controversial view, that they wouldn't normally express:</p> 
-                    <h3 style="color:#bbf;">The trams were actually a good idea</h3>
-                    <p>Many people in this room might secretly agree, but maybe wouldn't like to say 'Yes' to this question.</p>      
+                    <h3>Is Machine Learning overrated?</h3>
+                    <p>Many people in this room work in the field, but maybe wouldn't like to say 'Yes' to this question.</p>      
 
 				</section>
 
@@ -143,36 +216,67 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 </section>
 
 <section data-background="assets/pres_bg.png">
-					<h2>Summary</h2>
-					<p>We want to protect a user from a linkage attack.</p>
-                    <p class="fragment">While still performing inference over the whole group.</p>
-                    <p class="fragment">Making a dataset private needs more than just erasing names.</p>             
-                    <p class="fragment">To achieve a level of privacy one needs to add <b>randomness</b> to the data.</p>
-                    <p class="fragment">This is a fundamental feature of differential privacy.</p>
-				</section>
-				
-<section data-background="assets/pres_bg_bb.png" data-markdown>
-<script type="text/template">
-<h2>Differential Privacy</h2>
-<p>A randomised algorithm $M$ is $\varepsilon$-differentially private if, for all $m$, and for all neighbouring databases $D_1$ and $D_2$</p>
-<p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big)$
-<img src="assets/dp_graph.png" width=55%></p>
-</script>
+<h2>Summary</h2>
+<p>An individual's opinion is fairly safe in this example (plausible deniability)</p>
+<p class="fragment">We can still perform inference over the whole group</p>
+<p class="fragment">To protect the group, we could introduce more randomness</p>
 </section>
+
 
 <section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
-<p>The coin flip mechanism is $(\ln 3)$-differentially private.</p>
+<h2>Differential Privacy</h2>
+<p>A randomised algorithm $M$ is $(\varepsilon, \delta)$-differentially private if, for all $m$ across its whole range, and for all neighbouring databases $D_1$ and $D_2$</p>
+<p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<p class="fragment">$\varepsilon$ puts a bound on how much privacy is lost by the query.</p>
+<p class="fragment">Smaller $\varepsilon$ means more privacy (think about what happens if $\varepsilon=0$)</p>
+<p class="fragment">$\delta$ says this inequality only holds with probability $1-\delta$</p>
 </script>
 </section>
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>$P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<img src="assets/dp_graph.png" width=60%>
+<p class="fragment">The ratio of probabilities between the outputs from two neighbouring databases can't be more than $e^\varepsilon$</p>
+
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>For the coin-flip example, we want to compare the chance of a 'yes' response if the actual value is 'yes',</p>
+<p>$P\Big(M(yes)=yes\Big)$<span class="fragment">$={}^3/_4$</span></p>
+<p>with the chance of a 'yes' response if the actual value is 'no',</p>
+<p>$P\Big(M(no)=yes\Big)$<span class="fragment">$={}^1/_4$</span></p>
+<p class="fragment">Substituting in (ignoring $\delta$) $P\Big( M(D_1) = m \Big) \leq e^{\varepsilon} P\Big( M(D_2) = m \Big) + \delta$</p>
+<p class="fragment">${}^3/_4 \leq e^{\varepsilon} \times {}^1/_4$</p>
+<p class="fragment">$3 \leq e^{\varepsilon}$</p>
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>The strongest bound, which is true for all neighbouring databases and output values is that</p>
+<p>$\varepsilon = ln \; 3$</p>
+<p>So we can write that:</p>
+<br />
+<p>The coin flip mechanism is $(ln\;3, 0)$-differentially private.</p>
+</script>
+</section>
+
 
 <section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
 <h2>Counting Queries</h2>
 <p>How many people have diabetes?</p>
 <img src="assets/db0.png">
-<p>We'll call this database $D_1$.</p>
-<p>Our query function, $M$, is noisy summation.</p>
+<p class="fragment">We'll call this database $D_1$.</p>
+<p class="fragment">Our query function, $M$, is summation.</p>
+<p class="fragment">$M(D_1) = 2$</p>
 </script>
 </section>
 
@@ -180,9 +284,47 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 <script type="text/template">
 <p>How many people have diabetes?</p>
 <img src="assets/db.png">
-<p>We'll call this database $D_2$.</p>
+<p class="fragment">We'll call this database $D_2$.</p>
+<p class="fragment">$M(D_2) = 3$</p>
 </script>
 </section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>Did the new person (Fred) have diabetes?</p>
+<p class="fragment">$M(D_2)-M(D_1) = 3-2 = 1$</p>
+<p class="fragment">Yes</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>
+Differential Privacy works by considering the $l_1$ sensitivity of a function. That is; the magnitude of the change in its output one individual can cause.
+</p>
+<p class="fragment">In this case<br />$\Delta f= 1$</p>
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>
+To make our database queries differentially private we need to add noise to the output of the query, so $M(D) = f(D) + noise$.
+<img src="assets/laplace1.png" style="border:none;"  />
+</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>
+We can see the effect of adding $\Delta f$ to the output.
+<img src="assets/laplace2.png" style="border:none;" />
+</p>
+</script>
+</section>
+
 
 <section data-background="assets/pres_bg_bb.png" data-markdown>
 <script type="text/template">
@@ -194,43 +336,89 @@ If the actual output value $m = 4$, what is the probability of that output, for 
 </section>
 
 
-<section data-background="assets/pres_bg.png">
-	<h2>Differential Privacy for GPs</h2><h3>The Challenge</h3>
-	<p>We have a dataset in which the inputs, $X$, are <b>public</b>.</p>
-	<p>The outputs, $\mathbf{y}$, we want to keep <b>private</b>.</p>
-    <img src="assets/kung_pseudo_white.png" width="50%" style="margin:0px; border:none;" />
-    <p style="font-size:small;"><b>Data consists of the heights and weights of 287 women from a census of the !Kung</b></p>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3.png" width=80%  style="border:none;"/>
+<p>$M(D_2)$ was 3 times more likely to equal 4 than $M(D_1)$.</p>
+</script>
 </section>
 
 
-<section data-background="assets/pres_bg.png">
-	<h3>Vectors and Functions</h3>
-	<p>Hall et al. (2013) showed that one can ensure that a version
-of $f$, function $\tilde{f}$ is $(\varepsilon, \delta)$-differentially private by adding a scaled sample from a GP prior.</p>
-<img src="assets/hall1.png" width="40%" style="margin:0px; border:none;" />
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3b.png" width=80% style="border:none;"/>
+<p>$M(D_2)$ was also 3 times more likely to equal 3.5.</p>
+</script>
 </section>
 
-<section data-background="assets/pres_bg.png">
-	<h3>Applied to GPs</h3>
-	<p>We applied this method to the GP posterior.</p>
-	<p class="fragment">The covariance of the posterior only depends on the inputs, $X$. So we can compute this without applying DP.</p>
-	<p class="fragment">The mean function, $f_D(\mathbf{x_*})$, does depend on $\mathbf{y}$.
-	$f_D(\mathbf{x_*}) = \mathbf{k}_*^\top K^{-1} \mathbf{y}$</p>
-	<p class="fragment">We are interested in finding $|| f_D(\mathbf{x_*}) - f_{D^\prime}(\mathbf{x_*}) ||_H^2$</p>
-	<p class="fragment">...how much the mean function (in RKHS) can change due to a change in $\mathbf{y}$.</p>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3d.png" width=80% style="border:none;"/>
+<p>$M(D_1)$ was 3 times more likely to equal 1.5 than $M(D_2)$.</p>
+</script>
 </section>
 
-<section data-background="assets/pres_bg.png">
-	<h3>Applied to GPs</h3>
-	<p>Using the representer theorem, we can write the norm as:</p>
-	<p>$\Big|\Big|\sum_{i=1}^n k(\mathbf{x_*},\mathbf{x}_i) \left(\alpha_i - \alpha^\prime_i\right)\Big|\Big|_H^2$</p>
-	<p>where $\mathbf{\alpha} - \mathbf{\alpha}^\prime = K^{-1} \left(\mathbf{y} - \mathbf{y}^\prime \right)$</p>
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/laplace3e.png" width=80% style="border:none;"/>
+<p>In between the two peaks, neither distribution is more than 3 times more likely than the other.</p>
+</script>
 </section>
 
-<section data-background="assets/pres_bg.png">
-	<h3>Applied to GPs</h3>
-	<p>We constrain the kernel $-1\leq k \leq 1$ and we only allow one element of $\mathbf{y}$ to change by at most $d$.</p>
-	<p>The distance above can then be shown to be bounded by $d\;||K^{-1}||_\infty$
+
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<p>I've chosen the Laplace noise to have scale parameter, $b$, such that the privacy of this mechanism is equal to that of the coin flip example.</p>
+<p class="fragment">For any pair of neighbouring databases,
+$P\Big( M(D_2) = m \Big) \leq e^{ln\;3} \times P\Big( M(D_1) = m \Big)$</p>
+<p class="fragment">
+So we can say that (for the scale of the Laplace distribution I've chosen) this mechanism is $(ln \; 3,0)$-differentially private too. </p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/epsilons.png" width=60% align="right" style="border:none; margin-left:50px;"/>
+<h3>The Laplace Mechanism</h3>
+<p>It's fairly easy to see that to have privacy $\varepsilon$, for the Laplace mechanism, you need scale parameter</p>
+<p>$b = {{\Delta f} \over {b}}$</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+
+<h3>Briefly: The $\delta$ parameter</h3>
+<p>Consider adding uniform noise (with width=4).</p>
+<img src="assets/delta1.png" width=50% style="border:none;"/>
+<p>If you queried $D_1$ (without Fred), and received 0.5. You'd know there are between 0 and 2 people with diabetes.</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg_bb.png" data-markdown>
+<script type="text/template">
+<img src="assets/delta2.png" width=50% style="border:none;"/>
+<p>If you queried $D_2$ (with Fred), and received 4.5. You'd know there are between 3 and 6 people with diabetes.</p>
+<p class="fragment">From these two queries you can be certain that Fred has diabetes. Although our randomised algorithm wouldn't always reveal Fred's status, it would do so with some probability, which is handled by the $\delta$.</p>
+</script>
+</section>
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>Differential Privacy Summary</h2>
+<p>This is a fairly new field for me. I'm starting to look at using its powerful privacy guarantees for the handling of data as part of the <a href="http://scikic.org">scikic</a> project.</p>
+</script>
+</section>
+
+
+<section data-background="assets/pres_bg.png" data-markdown>
+<script type="text/template">
+<h2>What I'm doing with Differential Privacy</h2>
+<p><a href="http://jmlr.org/papers/volume14/hall13a/hall13a.pdf">Hall et al. 2013</a> have developed a method for releasing <em>functions</em> while preserving privacy.</p>
+<p>I'm applying their method to allow the release of a Gaussian Process's mean function.</p>
+<p>Check back soon!</p>
+</script>
 </section>
 
 
@@ -259,11 +447,6 @@ Ohm, Paul. "Broken promises of privacy: Responding to the surprising failure of 
 </p>
 
 <p align="left">Narayanan, Arvind, and Edward W. Felten. "No silver bullet: De-identification still doesn’t work." White Paper (2014). <a href="http://randomwalker.info/publications/no-silver-bullet-de-identification.pdf">link</a></p>
-
-<p>Howell, N. Data from a partial census of the !kung san,
-dobe. 1967-1969. https://public.tableau.
-com/profile/john.marriott#!/vizhome/
-kung-san/Attributes, 1967.</p>
 
 <p align="left"><span style='margin-left:-50px;'><b>Images used:</b></span>
 BostonGlobe: <a href="https://c.o0bg.com/rf/image_960w/Boston/2011-2020/2015/05/29/BostonGlobe.com/Business/Images/MassMutual_04.jpg">Mass Mutual</a>, 
