@@ -68,7 +68,7 @@
 					<h2>Anonymity Gone Wrong</h2>
 					<p>
                         <img src="assets/weld.jpg" width="50%" align="right" style="margin:50px;" />
-                        "William Weld, then Governor of Massachusetts, assured the public that GIC had protected patient privacy by deleting identifiers."<br/> <small><a href="https://epic.org/privacy/reidentification/ohm_article.pdf">Broken Promises of Privacy, Paul Ohm</a></small>
+                        The Governor assured the public that GIC had protected patient privacy by deleting identifiers.<br/> <small><a href="https://epic.org/privacy/reidentification/ohm_article.pdf">Broken Promises of Privacy, Paul Ohm</a></small>
 					</p>
 
 				</section>
@@ -85,7 +85,7 @@
 					<h2>Anonymity Gone Wrong</h2>
 					<p>
                         <img src="assets/sweeney.jpg" align="right" style="margin:50px;" />
-                        Latanya Sweeney used the voter rolls (which contain the <b>name</b>, <b>address</b>, <b>ZIP code</b>, <b>date of birth</b> and <b>sex</b> of every voter) to find Governor Weld's medical records...</p>
+                        Latanya Sweeney used the voter rolls to find the Governor's medical records...</p>
                     <p><span class="fragment">...which she posted to him.</span>
                     <p style="color:#eec; text-align:left;"><span class="fragment">This is a <b>linkage attack</b>:
                     it uses <b>auxiliary information</b> to compromise privacy in a database.</span></p>
@@ -144,8 +144,8 @@ If flips are different, tell the truth.</p> <p class="fragment">If they're the s
 
 <section data-background="assets/pres_bg.png">
 					<h2>Summary</h2>
-					<p>We want to protect a user from a linkage attack.</p>
-                    <p class="fragment">While still performing inference over the whole group.</p>
+					<p>We want to protect a user from a linkage attack...</p>
+                    <p class="fragment">...while still performing inference over the whole group.</p>
                     <p class="fragment">Making a dataset private needs more than just erasing names.</p>             
                     <p class="fragment">To achieve a level of privacy one needs to add <b>randomness</b> to the data.</p>
                     <p class="fragment">This is a fundamental feature of differential privacy.</p>
@@ -193,12 +193,14 @@ If the actual output value $m = 4$, what is the probability of that output, for 
 </script>
 </section>
 
+<section data-background="assets/pres_bg.png">
+	<h2>Differential Privacy for GPs</h2>
+</section>
 
 <section data-background="assets/pres_bg.png">
-	<h2>Differential Privacy for GPs</h2><h3>The Challenge</h3>
-	<p>We have a dataset in which the inputs, $X$, are <b>public</b>.</p>
-	<p>The outputs, $\mathbf{y}$, we want to keep <b>private</b>.</p>
-    <img src="assets/kung_pseudo_white.png" width="50%" style="margin:0px; border:none;" />
+	<h3>Differential Privacy for GPs</h3>
+	<p>We have a dataset in which the inputs, $X$, are <b>public</b>. The outputs, $\mathbf{y}$, we want to keep <b>private</b>.</p>
+    <img src="assets/kung_simple.png" width="75%" style="margin:0px; border:none;" />
     <p style="font-size:small;"><b>Data consists of the heights and weights of 287 women from a census of the !Kung</b></p>
 </section>
 
@@ -222,24 +224,77 @@ of $f$, function $\tilde{f}$ is $(\varepsilon, \delta)$-differentially private b
 
 <section data-background="assets/pres_bg.png">
 	<h3>Applied to GPs</h3>
-	<p>Using the representer theorem, we can write the norm as:</p>
+	<p>Using the representer theorem, we can write $|| f_D(\mathbf{x_*}) - f_{D^\prime}(\mathbf{x_*}) ||_H^2$<br/> as:</p>
 	<p>$\Big|\Big|\sum_{i=1}^n k(\mathbf{x_*},\mathbf{x}_i) \left(\alpha_i - \alpha^\prime_i\right)\Big|\Big|_H^2$</p>
+	<p>where $\mathbf{\alpha} - \mathbf{\alpha}^\prime = K^{-1} \left(\mathbf{y} - \mathbf{y}^\prime \right)$</p>	
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <p>$\Big|\Big|\sum_{i=1}^n k(\mathbf{x_*},\mathbf{x}_i) \left(\alpha_i - \alpha^\prime_i\right)\Big|\Big|_H^2$</p>
 	<p>where $\mathbf{\alpha} - \mathbf{\alpha}^\prime = K^{-1} \left(\mathbf{y} - \mathbf{y}^\prime \right)$</p>
+	<p class="fragment">We constrain the kernel: $-1\leq k \leq 1$ and we only allow one element of $\mathbf{y}$ and $\mathbf{y}'$ to differ (by at most $d$).</p>
+	<p class="fragment">So only one column of $K^{-1}$ will be involved in the change of mean (which we are summing over).</p>
+	<p class="fragment">The distance above can then be shown to be no greater than $d\;||K^{-1}||_\infty$	
 </section>
 
 <section data-background="assets/pres_bg.png">
-	<h3>Applied to GPs</h3>
-	<p>We constrain the kernel $-1\leq k \leq 1$ and we only allow one element of $\mathbf{y}$ to change by at most $d$.</p>
-	<p>The distance above can then be shown to be bounded by $d\;||K^{-1}||_\infty$
+    <h3>Applied to GPs</h3>
+    <p>This 'works' in that it allows DP predictions...</p>
+    <p>But to avoid too much noise, the value of $\varepsilon$ is too large (here it is 100!)</p>
+    <img src="assets/kung_standard_simple.png" width="75%" style="margin:0px; border:none;" />
 </section>
 
 <section data-background="assets/pres_bg.png">
- - show rubbish plot
- - explain about direction of noise
- - introduce cloaking
- - etc
- - results
+    <h3>Inducing Inputs</h3>
+    <p>Using sparse methods (i.e. inducing inputs) can help reduce the sensitivity a little.</p>
+    <img src="assets/kung_pseudo_simple.png" width="75%" style="margin:0px; border:none;" />
+</section>
 
+<section data-background="assets/pres_bg.png">
+    <h3>Effect of perturbation</h3>
+    <p>Previously I mentioned that the noise is sampled from the GP's <b>prior</b>.</p>
+    <p>This is not necessarily the most 'efficient' covariance to use.</p>
+    <img src="assets/cloak1.png" width="75%" style="margin:0px; border:none;" />
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <h3>Effect of perturbation</h3>
+    <img src="assets/cloak2.png" width="75%" style="margin:0px; border:none;" />
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <h3>Cloaking</h3>
+    <p>Left: Ideal covariance. Right: actual covariance</p>
+    <img src="assets/cloak3.png" width="75%" style="margin:0px; border:none;" />
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <h3>Cloaking</h3>
+    <p>Hall et al. (2013) also presented a bound on vectors.</p>
+    <p>We need to find a bound ($\Delta$) on the scale of the output change, in term of its Mahalanobis distance with respect to the added noise covariance.</p>
+    <p>$\sup_{D \sim {D'}} ||M^{-1/2} (\mathbf{y}_D - \mathbf{y}_{D'})||_2 \leq \Delta$</p>
+    <p>Then use this to add noise to our vector $\mathbf{v}_D$:</p>
+    <p>$\tilde{\mathbf{v}_D} = \mathbf{v}_D + \frac{\text{c}(\delta)\Delta}{\varepsilon}Z$</p>
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <h3>Cloaking</h3>
+    <p>Intuitively we want to construct M so that it has greatest covariance in those directions most affected by changes in training points, so that it will be most able to mask those changes.</p>
+    <p>The posterior mean predictions are,</p>
+    <p>$\mathbf{y}_* = K_{*f} K^{-1} \mathbf{y}$</p>
+    <p>The effect of perturbing each training point on each test point is represented in the cloaking matrix, $C = K_{*f} K^{-1}$
+</section>
+
+<section data-background="assets/pres_bg.png">
+    <h3>Cloaking</h3>
+    <p>We assume we only need protect the change in one training input at a time.</p>
+    <p>...introduce y-y' earlier</p>
+    <p>sub into bound</p>
+    <p>optimisation</p>
+    <p>Example: House prices</p>
+    <p>Example: citibike</p>
+    <p>Also need to do intro re uganda</p>
+</section>
 
 <section data-background="assets/pres_bg.png">
 <small>
